@@ -25,8 +25,8 @@ class LeafNode(HTMLNode):
         return self.tag == other.tag and self.value == other.value and self.props == other.props
 
     def to_html(self):
-        if not self.value:
-            raise ValueError
+        # if not self.value:
+        #     raise ValueError
         
         if not self.tag:
             return self.value
@@ -40,7 +40,10 @@ class ParentNode(HTMLNode):
         super().__init__(tag, None, children, props)
 
     def __eq__(self, other):
-        return self.tag == other.tag and self.children == other.children and self.props == other.props
+        if isinstance(other,  ParentNode):
+            return self.tag == other.tag and self.children == other.children and self.props == other.props
+        
+        return False
     
     def to_html(self):
         if not self.tag:
